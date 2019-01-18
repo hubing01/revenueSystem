@@ -12,6 +12,8 @@ const users = require('./routes/users')
 const logUtil = require('./utils/log_util');
 const api = require('./routes/api');
 
+const response_formatter = require('./middlewares/response_formatter');
+
 
 // error handler
 onerror(app)
@@ -51,12 +53,10 @@ try {
 });
 
 //添加格式化处理响应结果的中间件，在添加路由之前调用
+app.use(response_formatter('^/api'));
 //仅对/api开头的url进行格式化处理
-router.use('^/api',api.routes(), api.allowedMethods());
+router.use('/api',api.routes(), api.allowedMethods());
 // routes
-
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
 app.use(router.routes(), router.allowedMethods());
 
 // error-handling
