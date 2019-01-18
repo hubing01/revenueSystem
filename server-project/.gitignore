@@ -2,7 +2,7 @@
 .idea
 
 #logs
-/dist
+/logs
 
 #node_modules
 **/node_modules
